@@ -15,6 +15,11 @@ var Workout = require('./models/workout');
 
 // App
 app.use(bodyParser.json());
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 app.get('/', function (req, res) {
   res.json({
@@ -42,7 +47,7 @@ app.put('/exercises/:id', function(req, res) {
     exercise.save(function  (err, savedExercise) {
       if (err) throw err;
 
-      res.json(savedExercise);  
+      res.json(savedExercise);
     });
   });
 });
@@ -73,7 +78,7 @@ app.get('/programs/:id', function(req, res) {
 
 // Create new workout
 app.post('/workouts', function(req, res) {
-  var programId = req.body.program; 
+  var programId = req.body.program;
   var newWorkout = new Workout({
     date: Date.now(),
     program: programId
@@ -104,8 +109,8 @@ app.put('/workouts/:id', function(req, res) {
     workout = Object.assign(workout, workoutReq);
     workout.save(function  (err, savedWorkout) {
       if (err) throw err;
-      
-      res.json(savedWorkout);  
+
+      res.json(savedWorkout);
     });
   });
 });
