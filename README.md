@@ -26,5 +26,5 @@ You'll need to set some environment variables:
 
 *Run tests*
 
-`mocha tests/tests.js`
+With the API already running, run: `mocha tests/tests.js`
 

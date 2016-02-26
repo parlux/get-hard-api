@@ -40,7 +40,6 @@ app.use(function(err, req, res, next) {
 });
 
 // Serve
-module.exports = app;
-// app.listen(port, function () {
-//   console.log('Application listening on port %s!', port);
-// });
+app.listen(port, function () {
+  console.log('Application listening on port %s!', port);
+});
