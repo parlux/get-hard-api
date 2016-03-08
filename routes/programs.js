@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var _ = require('lodash');
+var sortByOrder = require('../utils/sortByOrder');
 
 var Program = require('../models/program');
 
@@ -29,7 +29,7 @@ router.get('/:id', function(req, res) {
           var obj1 = Object.assign({}, { order: exercise.order });
           var obj2 = Object.assign({}, exercise.exercise._doc);
           return Object.assign({}, obj1, obj2);
-        })
+        }).sort(sortByOrder)
       });
 
     });
