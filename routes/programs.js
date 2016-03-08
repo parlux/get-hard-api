@@ -32,14 +32,15 @@ router.get('/:id', function(req, res) {
     .exec(function(err, program) {
       if (err) throw err;
 
-      res.json({
-        name: program.name,
+      var newProgram = Object.assign({}, program._doc, {
         exercises: program._doc.exercises.map(function(exercise) {
           var obj1 = Object.assign({}, { order: exercise.order });
           var obj2 = Object.assign({}, exercise._id._doc);
           return Object.assign({}, obj1, obj2);
         }).sort(sortByOrder)
       });
+
+      res.json(newProgram);
 
     });
 });
