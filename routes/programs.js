@@ -23,12 +23,21 @@ router.get('/:id', function(req, res) {
     .exec(function(err, program) {
       if (err) throw err;
 
-      res.json(program);
+      res.json({
+        name: program.name,
+        exercises: program._doc.exercises.map(function(exercise) {
+          var obj1 = Object.assign({}, { order: exercise.order });
+          var obj2 = Object.assign({}, exercise.exercise._doc);
+          return Object.assign({}, obj1, obj2);
+        })
+      });
+
     });
 });
 
 router.post('/', function(req, res) {
   var program = new Program(req.body.program);
+  console.log(req.body.program);
   program.save(function(err, savedProgram) {
     if (err) throw err;
 
