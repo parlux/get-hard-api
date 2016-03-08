@@ -5,7 +5,7 @@ var programSchema = new Schema({
   name: String,
   exercises: [
     {
-      exercise: { type: Schema.Types.ObjectId, ref: 'Exercise' },
+      _id: { type: Schema.Types.ObjectId, ref: 'Exercise' },
       order: Number
     }
   ]
