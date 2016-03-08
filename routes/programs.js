@@ -28,7 +28,7 @@ router.get('/:id', function(req, res) {
 });
 
 router.post('/', function(req, res) {
-  var program = new Program(req.body);
+  var program = new Program(req.body.program);
   program.save(function(err, savedProgram) {
     if (err) throw err;
 
