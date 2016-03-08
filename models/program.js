@@ -3,7 +3,12 @@ var Schema = mongoose.Schema;
 
 var programSchema = new Schema({
   name: String,
-  exercises: [{ type: Schema.Types.ObjectId, ref: 'Exercise' }]
+  exercises: [
+    {
+      exercise: { type: Schema.Types.ObjectId, ref: 'Exercise' },
+      order: Number
+    }
+  ]
 });
 
 module.exports = mongoose.model('Program', programSchema);

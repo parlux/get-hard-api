@@ -27,29 +27,31 @@ router.get('/', function(req, res) {
     });
 });
 
-router.post('/', function(req, res) {
-  var programId = req.body.program;
-  var newWorkout = new Workout({
-    date: Date.now(),
-    program: programId
-  });
-
-  Program
-    .findOne({ _id: programId })
-    .populate('exercises')
-    .exec(function(err, program) {
+router.get('/:id', function(req, res) {
+  Workout
+    .findOne({ _id: req.params.id })
+    .populate('program')
+    .exec(function(err, workout) {
       if (err) throw err;
 
-      newWorkout.exercises = program.exercises;
-      newWorkout.save(function(err, workout) {
-        if (err) throw err;
+      res.json(workout);
+    });
+});
 
-        res.json( {message: 'Created new workout ' + workout._id} );
-      });
+router.post('/', function(req, res) {
+  var workout = req.body.workout;
+  var newWorkout = new Workout({
+    exercises: workout.exercises,
+    program: workout.program
+  });
+  newWorkout.save(function(err, workout) {
+    if (err) throw err;
+
+    res.json(workout);
   });
 });
 
-router.put('//:id', function(req, res) {
+router.put('/:id', function(req, res) {
   var workoutReq = req.body.workout;
 
   Workout.findOne({ _id: req.params.id }, function(err, workout) {

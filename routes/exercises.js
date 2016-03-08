@@ -11,6 +11,33 @@ router.get('/', function(req, res) {
   });
 });
 
+router.post('/', function(req, res) {
+  var exercise = new Exercise(req.body.exercise);
+  exercise.save(function(err, savedExercise) {
+    if (err) throw err;
+
+    res.json(savedExercise);
+  });
+});
+
+router.get('/:id', function(req, res) {
+  Exercise
+    .findOne({ _id: req.params.id }, function(err, exercise) {
+      if (err) throw err;
+
+      res.json(exercise);
+    });
+});
+
+router.delete('/:id', function(req, res) {
+  Exercise
+    .findOneAndRemove({ _id: req.params.id }, function(err) {
+      if (err) throw err;
+
+      res.json({message: 'Removed'});
+    })
+});
+
 router.put('/:id', function(req, res) {
   var exerciseReq = req.body.exercise;
   Exercise.findOne({ _id: req.params.id }, function(err, exercise) {
