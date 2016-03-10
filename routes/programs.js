@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var sortByOrder = require('../utils/sortByOrder');
 
 var Program = require('../models/program');
 
@@ -28,19 +27,11 @@ router.post('/', function(req, res) {
 router.get('/:id', function(req, res) {
   Program
     .findOne({ _id: req.params.id })
-    .populate('exercises._id')
+    .populate('exercises')
     .exec(function(err, program) {
       if (err) throw err;
 
-      var newProgram = Object.assign({}, program._doc, {
-        exercises: program._doc.exercises.map(function(exercise) {
-          var obj1 = Object.assign({}, { order: exercise.order });
-          var obj2 = Object.assign({}, exercise._id._doc);
-          return Object.assign({}, obj1, obj2);
-        }).sort(sortByOrder)
-      });
-
-      res.json(newProgram);
+      res.json(program);
 
     });
 });
