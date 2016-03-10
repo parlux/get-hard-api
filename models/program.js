@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var programSchema = new Schema({
   name: String,
+  order: Number,
   exercises: [
     { type: Schema.Types.ObjectId, ref: 'Exercise' }
   ]

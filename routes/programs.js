@@ -2,16 +2,14 @@ var express = require('express');
 var router = express.Router();
 
 var Program = require('../models/program');
+var sortByOrder = require('../utils/sortByOrder');
 
 router.get('/', function(req, res) {
   Program
     .find({}, function(err, programs) {
       if (err) throw err;
-      res.json(
-        programs.map(function(program) {
-          return {_id: program._id, name: program.name};
-        })
-      );
+
+      res.json(programs.sort(sortByOrder));
     });
 });
 
