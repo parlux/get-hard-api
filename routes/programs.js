@@ -57,4 +57,17 @@ router.put('/:id', function(req, res) {
   });
 });
 
+// Update orders
+router.post('/reorder', function(req, res) {
+  var programs = req.body.programs;
+
+  programs.forEach(function(program) {
+    Program.update({ _id: program._id }, { $set: { order: program.order }}, function(err) {
+      if (err) throw err;
+    });
+  });
+
+  res.json({'message': 'Updated Successful'});
+});
+
 module.exports = router;
