@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var async = require('async');
 
 var Program = require('../models/program');
 var sortByOrder = require('../utils/sortByOrder');
@@ -61,13 +62,17 @@ router.put('/:id', function(req, res) {
 router.post('/reorder', function(req, res) {
   var programs = req.body.programs;
 
-  programs.forEach(function(program) {
-    Program.update({ _id: program._id }, { $set: { order: program.order }}, function(err) {
+  async.parallel(
+    programs.map(function(program) {
+      return function(callback) {
+        Program.update({ _id: program._id }, { $set: { order: program.order }}, callback);
+      }
+    }), function(err) {
       if (err) throw err;
-    });
-  });
 
-  res.json({'message': 'Updated Successful'});
+      res.json({'message': 'Successfully updated'});
+    }
+  );
 });
 
 module.exports = router;
