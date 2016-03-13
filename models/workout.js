@@ -3,7 +3,6 @@ var Schema = mongoose.Schema;
 
 var workoutSchema = new Schema({
   date: { type: Date, default: Date.now },
-  program: { type: Schema.Types.ObjectId, ref: 'Program' },
   exercises: [
     {
       _id: { type: Schema.Types.ObjectId },
