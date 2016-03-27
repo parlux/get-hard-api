@@ -1,0 +1,7 @@
+{
+  db: {
+    url: process.env.DBURL
+    name: ''
+  }
+  url: process.env.DBURL
+}

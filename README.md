@@ -14,17 +14,16 @@ You'll need to set some environment variables:
 
 *Run normally:*
 
-`node server.js`
+`npm start`
 
 *Run with nodemon*
 
-`nodemon server.js`
+`nodemon ./bin/www`
 
 *Run with nodemon in debug mode*
 
-`nodemon --debug server.js`
+`nodemon --debug ./bin/www`
 
 *Run tests*
 
-With the API already running, run: `mocha tests/tests.js`
-
+`node clear-test-db.js && mocha tests`
