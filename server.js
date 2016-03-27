@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-var port = 3000;
+var port = process.env.PORT || 3000;
 var dbConfig = require('./config/db.js');
 var morgan = require('morgan');
 
