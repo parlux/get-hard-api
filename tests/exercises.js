@@ -1,5 +1,5 @@
 var request = require('supertest');
-var app = require('../server.js');
+var app = require('../app/app.js');
 
 describe('Exercises', function() {
   var exerciseId;

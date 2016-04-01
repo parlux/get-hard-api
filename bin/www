@@ -1,8 +1,0 @@
-require('dotenv').config();
-var app = require('../server.js');
-var port = process.env.PORT || 3000;
-
-// Serve
-app.listen(port, function () {
- console.log('Application listening on port %s!', port);
-});
